@@ -1,0 +1,96 @@
+{
+ KSAsjaAKS{   
+
+     directions {
+         left: true
+         right: false
+         forward: true
+         backward: false
+     }
+
+     location {
+        X : 12561
+        Y : 145151
+    }
+    destination {
+        X : 56859
+        Y : 41532
+    }
+
+    //ultrasonic sensor to detect obstacles
+
+    "ultrasonicSens":{
+        "value":2610,
+        "state":true,
+        "lastUpdate":1602505879.209
+    },
+
+    //capacitive sensor to detect objects
+
+    "plasticSens":{
+        "state": true,
+        "lastUpdate":1402568879.250,
+
+    },
+    
+    //inductive sensor to detect metal
+
+    "metalSens":{
+        "state": false,
+        "lastUpdate":1522563979.124,
+
+    },
+
+    "buzzer":{
+        "state":true,
+        "lastUpdate":1204568879.279
+    },
+    
+    "location":{
+        "Yaxis":36.00343,
+        "Xaxis":10.03274
+    },
+
+    "battery":{
+        "percentage":74
+    }
+
+    harmfuml {
+        GhsoSKSr2SL {
+            x : 45645
+            y : 415
+        }
+
+        lsKD4SAKDKS {
+            x : 45645
+            y : 415
+        }
+
+        jsLSJAFSAks {
+            x : 45645
+            y : 415
+        }
+
+        ...
+    }
+
+    harmless {
+        KSADKSA847s {
+            x : 45645
+            y : 415
+        }
+
+        GhsoSKSr2SL {
+            x : 45645
+            y : 415
+        }
+
+        jsLSJA94sLS {
+            x : 45645
+            y : 415
+        }
+
+        ...
+    }
+ }
+}
