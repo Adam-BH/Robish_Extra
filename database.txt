@@ -46,16 +46,12 @@
         "lastUpdate":1204568879.279
     },
     
-    "location":{
-        "Yaxis":36.00343,
-        "Xaxis":10.03274
-    },
 
     "battery":{
         "percentage":74
     }
 
-    harmfuml {
+    harmful {
         GhsoSKSr2SL {
             x : 45645
             y : 415
