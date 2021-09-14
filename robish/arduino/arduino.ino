@@ -1,80 +1,81 @@
-int ATBuzzerPin = 5; //D1 buzzer pin
-int ATtrigP ;
-int ATechoP;
-int ObstacleTrigP;
-int ObstacleEchoP;
-int TrashTrigP  ;
-int TrashEchoP  ;
+int ATBuzzerPin = 8; //D1 buzzer pin
+
+int ObstacleTrigP=7;
+int ObstacleEchoP=6;
+int TrashTrigP  =2;
+int TrashEchoP  =3;
+
+int induc;
+
 long  duration;
 float ATdistance;
 float distanceTrash;
 float distance;
 
-int obstacle;
-int trash;
-
-int readfirebase;
+int obstacle=9;
+int trash=10;
 
 
-int state;
+
+
+int val; // define a numeric variable val 
+
 
 
 void setup() {
-  pinMode(ATtrigP, OUTPUT);
-  pinMode(ATechoP, INPUT);
+
 
   pinMode(ObstacleTrigP, OUTPUT);
   pinMode(ObstacleEchoP, INPUT);
   pinMode(TrashTrigP, OUTPUT);
   pinMode(TrashEchoP, INPUT);
-
   pinMode(ATBuzzerPin, OUTPUT);
   pinMode(obstacle, OUTPUT);
-  pinMode(obstacle, OUTPUT);
-
-  pinMode(readfirebase, INPUT);
+  pinMode(trash, OUTPUT);
+  
+  pinMode(induc, INPUT);
 
 
   //Set serial monitor
   Serial.begin(9600);
+
+  
 }
 
 void loop() {
-  if (digitalRead(readfirebase)) {
-    antiTheft();
-    if (checkObstacle()) {
-      digitalWrite(obstacle, HIGH);
-    }
+  if (val == HIGH ) {// when sensor detects shock,buzzer on 
+    digitalWrite(ATBuzzerPin, HIGH);
+  } 
+  else {
+    digitalWrite (ATBuzzerPin, LOW);
+    delay(1000);
+  }
+    
     if (checkTrash()) {
       digitalWrite(trash, HIGH);
+      
+      Serial.println("trash detected");
     }
-  }
+    else {
+      Serial.println("trash not detected");
+      
+    }
 
+    if (checkObstacle()) {
+      digitalWrite(obstacle, HIGH);
+      Serial.println("obstacle detected");
+    }else {
+      digitalWrite(obstacle, LOW);
+      Serial.println("obstacle not detected");
+    }
+
+ 
 }
 
 
 
 
-void antiTheft(void) {
-  digitalWrite ( ATBuzzerPin, LOW);
-  digitalWrite(ATtrigP, LOW);
-  delayMicroseconds(2);       // 2 micro second delay
-  digitalWrite(ATtrigP, HIGH);
-  delayMicroseconds(10);      // trigPin high for 10 micro seconds
-  digitalWrite(ATtrigP, LOW);
-  duration = pulseIn(ATechoP, HIGH);   //Read echo pin, time in microseconds
-  ATdistance = duration * 0.034 / 2;   //Calculating actual/real distance en cm
 
-  Serial.println(ATdistance);
-
-  if (ATdistance > 50)
-  {
-    digitalWrite ( ATBuzzerPin, HIGH);
-    delay(1000);
-    digitalWrite ( ATBuzzerPin, LOW);
-  }
-
-}
 
 bool checkTrash(void) {
   digitalWrite(ObstacleTrigP, LOW);   // Makes trigPin low
@@ -85,9 +86,13 @@ bool checkTrash(void) {
   duration = pulseIn(ObstacleEchoP, HIGH);   //Read echo pin, time in microseconds
   distance = duration * 0.034 / 2;   //Calculating actual/real distance en cm
 
+  Serial.print("obstacle distance: ");
+  Serial.println(distance);
   if (distance > 250 && checkObstacle() ) //and ObstacleTrigP,LOW & TrashtrigP,HIGH
   {
     return true;
+  }else{
+    return false;
   }
 
 }
@@ -101,8 +106,13 @@ bool checkObstacle(void) {
   duration = pulseIn(TrashEchoP, HIGH);   //Read echo pin, time in microseconds
   distanceTrash = duration * 0.034 / 2;   //Calculating actual/real distance en cm
 
+  Serial.print("trash distance: ");
+  Serial.println(distanceTrash);
+
   if (distanceTrash < 100) //and ObstacleTrigP LOW
   {
     return true;
+  }else{
+    return false;
   }
 }

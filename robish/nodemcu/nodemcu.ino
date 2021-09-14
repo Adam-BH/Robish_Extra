@@ -96,6 +96,7 @@ void setup() {
 void autoPilot() {
   if (gps.location.isValid() || (readLocation().lat != 0 && isDigit(readLocation().lat))) {
     go();
+    digitalWrite(buzzer, LOW);
   }
   else {
     digitalWrite(buzzer, HIGH);
@@ -180,7 +181,7 @@ void turn(int i) {
     }
     else {
       TurnLeft();
-      delay(400); MotorForward();
+      delay(400);
       MotorForward();
       delay(floor(upsw / Speed) * 1000);
       TurnLeft();
@@ -198,7 +199,7 @@ void turn(int i) {
     }
     else {
       TurnLeft();
-      delay(400); MotorForward();
+      delay(400); 
       MotorForward();
       delay(floor(upsw / Speed) * 1000);
       TurnLeft();
